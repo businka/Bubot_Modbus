@@ -1,2 +1,1 @@
-__version__ = '0.0.1'
-name = 'bubot_ModbusMaster'
+__version__ = '0.0.2'
