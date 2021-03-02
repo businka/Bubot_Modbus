@@ -1,0 +1,14 @@
+Accept: text/plain
+Accept-Encoding: gzip, deflate
+Accept-Language: ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7
+Authorization: Basic YWRtaW46YWRtaW4=
+Connection: keep-alive
+Content-Length: 216
+Content-Type: application/json; charset=UTF-8
+Cookie: ProductId=HF5111A; iottitle=HF5111A
+Host: 192.168.1.25
+Origin: http://192.168.1.25
+Referer: http://192.168.1.25/uart.html
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36
+X-Requested-With: XMLHttpRequest
+msg={"CID":10005,"PL":{"UART":{"Baudrate":9600,"Databits":8,"Stopbits":1,"Parity":"NONE","BufSize":512,"GapTime":50,"FlowCtrl":0,"CliGetIn":"Serial-String","SerailString":"+++","CliWaitTime":300,"UartProto":"NONE"}}}

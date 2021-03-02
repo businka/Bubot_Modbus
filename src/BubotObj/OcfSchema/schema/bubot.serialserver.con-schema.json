@@ -1,0 +1,47 @@
+{
+  "id": "http://razgovorov.ru/bubot/schemas/bubot.serialserver.con-schema.json#",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "",
+  "title": "configuration",
+  "definitions": {
+    "bubot.serialserver": {
+      "type": "object",
+      "properties": {
+        "host": {
+          "type": "string",
+          "format": "uri",
+          "description": "ip address"
+        },
+        "port": {
+          "type": "integer",
+          "format": "uri",
+          "description": "socket port for serial messages"
+        },
+        "login": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string",
+          "format": "password"
+        },
+        "timeout": {
+          "type": "integer",
+          "default": 2,
+          "description": ""
+        }
+      }
+    }
+  },
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "oic.baseResource.json#/definitions/oic.r.baseresource"
+    },
+    {
+      "$ref": "#/definitions/bubot.serialserver"
+    },
+    {
+      "$ref": "bubot.serial.con-schema.json#/definitions/serial.conf"
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "id": "http://razgovorov.ru/bubot/schemas/bubot.serial.con-schema.json#",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "",
+  "title": "configuration",
+  "definitions": {
+    "serial.conf": {
+      "type": "object",
+      "properties": {
+        "baudRate": {
+          "type": "integer",
+          "default": 9600,
+          "description": "",
+          "enum": [1200, 2400, 4800, 9600, 19200, 38400, 57600, 115200]
+        },
+        "parity": {
+          "type": "integer",
+          "default": 0,
+          "description": "",
+          "enum": [0, 1, 2]
+        },
+        "dataBits": {
+          "type": "integer",
+          "default": 0,
+          "description": "",
+          "enum": [4, 5, 6 ,7, 8]
+        },
+        "stopBits": {
+          "type": "integer",
+          "default": 1,
+          "description": "",
+          "enum": [1 , 2]
+        }
+      }
+    }
+  },
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "oic.core-schema.json#/definitions/oic.core"
+    },
+    {
+      "$ref": "#/definitions/serial.conf"
+    }
+  ]
+}

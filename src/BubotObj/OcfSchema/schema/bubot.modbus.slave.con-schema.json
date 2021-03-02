@@ -1,0 +1,48 @@
+{
+  "id": "http://razgovorov.ru/bubot/schemas/bubot.modbus.slave.con-schema.json#",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "",
+  "title": "configuration",
+  "definitions": {
+    "modbus.slave.con": {
+      "type": "object",
+      "properties": {
+        "master": {
+          "type": "object",
+          "format": "link",
+          "formUid": "OcfResource/Select",
+          "formData": {
+            "dataSource": {
+              "filter": {
+                "rt": "bubot.modbus.msg"
+              }
+            }
+          },
+          "allOf": [
+            {
+              "$ref": "oic.oic-link-schema.json#/definitions/oic.oic-link"
+            }
+          ]
+        },
+        "slave": {
+          "type": "integer",
+          "description": "",
+          "minimum": 1,
+          "maximum": 255
+        }
+      }
+    }
+  },
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "oic.core-schema.json#/definitions/oic.core"
+    },
+    {
+      "$ref": "#/definitions/modbus.slave.con"
+    },
+    {
+      "$ref": "bubot.serial.con-schema.json#/definitions/serial.conf"
+    }
+  ]
+}

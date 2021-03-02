@@ -1,0 +1,48 @@
+{
+  "id": "http://razgovorov.ru/bubot/schemas/bubot.modbus.msg-schema.json#",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "",
+  "title": "configuration",
+  "definitions": {
+    "modbus.msg": {
+      "type": "object",
+      "properties": {
+        "slave": {
+          "type": "integer",
+          "description": "",
+          "minimum": 1,
+          "maximum": 255
+        },
+        "function": {
+          "type": "integer",
+          "description": "",
+          "minimum": 1,
+          "maximum": 255
+        },
+        "pdu": {
+          "type": "string",
+          "default": "",
+          "description": "base64 PDU string"
+        },
+        "answerSize": {
+          "type": "integer",
+          "description": "",
+          "minimum": 0,
+          "maximum": 255
+        }
+      }
+    }
+  },
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "oic.core-schema.json#/definitions/oic.core"
+    },
+    {
+      "$ref": "#/definitions/modbus.msg"
+    },
+    {
+      "$ref": "bubot.serial.con-schema.json#/definitions/serial.conf"
+    }
+  ]
+}

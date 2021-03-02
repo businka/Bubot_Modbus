@@ -1,0 +1,10 @@
+{
+  "/oic/d": {
+    "n": "Serial server HF511A"
+  },
+  "/oic/p": {
+    "mnmn": "iot workshop",
+    "mnml": "http://www.iotworkshop.com/",
+    "mnmo": "HF511A"
+  }
+}

@@ -1,0 +1,40 @@
+{
+
+  "/oic/d": {
+    "n": "Modbus master"
+  },
+  "/oic/con": {
+    "rt": [
+      "bubot.serialserver.con"
+    ],
+    "host": "",
+    "port": 502,
+    "web_port": 80,
+    "login": "admin",
+    "password": "admin",
+    "baudRate": 9600,
+    "parity": 0,
+    "dataBits": 8,
+    "stopBits": 1
+  },
+  "/modbus_msg": {
+    "n": "Modbus socket",
+    "rt": [
+      "bubot.modbus.msg"
+    ],
+    "if": [
+      "oic.if.baseline"
+    ],
+    "p": {
+      "bm": 1
+    },
+    "slave": 0,
+    "function": 0,
+    "pdu": "",
+    "answerSize": 0,
+    "baudRate": 9600,
+    "parity": 0,
+    "dataBits": 8,
+    "stopBits": 1
+  }
+}
