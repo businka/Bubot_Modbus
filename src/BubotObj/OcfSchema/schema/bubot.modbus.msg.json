@@ -1,5 +1,5 @@
 {
-  "id": "http://razgovorov.ru/bubot/schemas/bubot.modbus.msg-schema.json#",
+  "id": "http://razgovorov.ru/bubot/schemas/bubot.modbus.msg.json#",
   "$schema": "http://json-schema.org/draft-04/schema#",
   "description": "",
   "title": "configuration",
@@ -36,13 +36,13 @@
   "type": "object",
   "allOf": [
     {
-      "$ref": "oic.core-schema.json#/definitions/oic.core"
+      "$ref": "oic.core.json#/definitions/oic.core"
     },
     {
       "$ref": "#/definitions/modbus.msg"
     },
     {
-      "$ref": "bubot.serial.con-schema.json#/definitions/serial.conf"
+      "$ref": "bubot.serial.con.json#/definitions/serial.conf"
     }
   ]
 }
