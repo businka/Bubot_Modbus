@@ -1,6 +1,6 @@
 import unittest
 from .async_test import async_test
-from BubotObj.OcfDevice.subtype.Device.QueueMixin import QueueMixin
+from bubot.buject.OcfDevice.subtype.Device.QueueMixin import QueueMixin
 import asyncio
 import logging
 

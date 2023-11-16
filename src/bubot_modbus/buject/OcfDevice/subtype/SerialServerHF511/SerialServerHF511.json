@@ -4,7 +4,7 @@
   },
   "/oic/p": {
     "mnmn": "iot workshop",
-    "mnml": "http://www.iotworkshop.com/",
+    "mnml": "https://www.iotworkshop.com/, http://www.hi-flying.com/hf5111a",
     "mnmo": "HF511A"
   }
 }

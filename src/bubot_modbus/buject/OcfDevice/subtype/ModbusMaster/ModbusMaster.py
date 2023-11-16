@@ -1,13 +1,15 @@
-from BubotObj.OcfDevice.subtype.Device.Device import Device
-from BubotObj.OcfDevice.subtype.Device.QueueMixin import QueueMixin
-from .__init__ import __version__ as device_version
-from Bubot.Helpers.ExtException import ExtException, ExtTimeoutError, KeyNotFound
-from aio_modbus_client.ModbusProtocolRtu import ModbusProtocolRtu as ModbusProtocol
-from aio_modbus_client.TransportSocket import TransportSocket as ModbusSocket
-from aio_modbus_client.TransportSerial import TransportSerial as ModbusSerial
-from aio_modbus_client.ModbusProtocolOcf import OcfMessageRequest
 import asyncio
-import logging
+from datetime import datetime
+
+from aio_modbus_client.ModbusProtocolOcf import OcfMessageRequest
+from aio_modbus_client.ModbusProtocolRtu import ModbusProtocolRtu as ModbusProtocol
+from aio_modbus_client.TransportSerial import TransportSerial as ModbusSerial
+from aio_modbus_client.TransportSocket import TransportSocket as ModbusSocket
+from bubot.buject.OcfDevice.subtype.Device.Device import Device
+from bubot.buject.OcfDevice.subtype.Device.QueueMixin import QueueMixin
+from bubot_helpers.ExtException import ExtException, ExtTimeoutError, KeyNotFound
+from .ResModbusMsg import ResModbusMsg
+from .__init__ import __version__ as device_version
 
 
 # _logger = logging.getLogger(__name__)
@@ -21,8 +23,10 @@ class ModbusMaster(Device, QueueMixin):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        self.last_request = datetime.now()
         self.serial_queue = asyncio.Queue()
         self.serial_queue_worker = None
+        self.resource_layer.add_handler('/modbus_msg', ResModbusMsg)
         self.modbus = None
 
     async def on_pending(self):
@@ -45,10 +49,16 @@ class ModbusMaster(Device, QueueMixin):
 
     async def execute(self, data):
         try:
+            queue_size = self.serial_queue.qsize()
+            sleep_time = 0.1 - (datetime.now() - self.last_request).total_seconds()
+            if sleep_time > 0:
+                self.log.info(f'sleep_time {sleep_time} queue_size {queue_size}')
+                await asyncio.sleep(sleep_time)
             if self.need_change_serial(data):
                 await self.set_serial_configuration(data)
             self.log.debug(data)
             message = OcfMessageRequest(**data)
+            self.last_request = datetime.now()
             response = await self.modbus.execute(message, None)
             # self.log.debug('execute({0})={1}'.format(data, response))
             return response.b64decode()
@@ -56,8 +66,8 @@ class ModbusMaster(Device, QueueMixin):
             self.log.error(f'Не указан обязательный параметр {err}')
             raise KeyNotFound(detail=str(err), action='ModbusMaster.execute')
         except asyncio.TimeoutError as err:
-            self.log.error('ExtTimeoutError')
-            raise ExtTimeoutError(action='ModbusMaster.execute') from err
+            # self.log.error('ExtTimeoutError')
+            raise ExtTimeoutError(action='ModbusMaster.execute')
         except Exception as err:
             self.log.error(err)
             raise ExtException(parent=err, action='ModbusMaster.execute')
@@ -73,13 +83,13 @@ class ModbusMaster(Device, QueueMixin):
             return False
         return True
 
-    async def on_update_modbus_msg(self, message):
-        result = await self.execute_in_queue(
-            self.serial_queue,
-            self.execute(
-                message.cn,
-            ), name='execute')
-        return result
+    # async def on_update_modbus_msg(self, message):
+    #     result = await self.execute_in_queue(
+    #         self.serial_queue,
+    #         self.execute(
+    #             message.cn,
+    #         ), name='execute')
+    #     return result
 
     def update_param(self, resource, name, new_value, **kwargs):
         if resource in ['/oic/con', 'oic/d']:

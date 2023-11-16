@@ -1,10 +1,10 @@
 import unittest
 import asyncio
-from BubotObj.OcfDevice.subtype.SerialServerHF511.SerialServerHF511 import SerialServerHF511 as Device
-from Bubot.Core.OcfMessage import OcfRequest
+from bubot_modbus.buject.OcfDevice.subtype.SerialServerHF511.SerialServerHF511 import SerialServerHF511 as Device
+from bubot.core.OcfMessage import OcfRequest
 from aio_modbus_client.ModbusProtocolOcf import OcfMessageRequest
-from Bubot.Core.TestHelper import async_test, wait_run_device, get_config_path
-from Bubot.Helpers.ExtException import KeyNotFound, ExtTimeoutError
+from bubot.core.TestHelper import async_test, wait_run_device, get_config_path
+from bubot_helpers.ExtException import KeyNotFound, ExtTimeoutError
 import logging
 
 

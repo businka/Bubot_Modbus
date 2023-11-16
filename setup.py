@@ -1,5 +1,5 @@
 import setuptools
-from src.BubotObj.OcfDevice.subtype.ModbusMaster import __version__
+from bubot_modbus.buject.OcfDevice.subtype.ModbusMaster import __version__
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
